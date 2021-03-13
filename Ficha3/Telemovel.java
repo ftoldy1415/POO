@@ -123,24 +123,28 @@ public class Telemovel {
         this.resolX= t.getResolX();
         this.resolY = t.getResolY();
         this.storageText = t.getStorageText();
-        //this.texts=t.getTexts();
+        this.texts=t.getTexts();
+        /*
         this.texts = new String[this.storageText];
         for (int i = 0; t.texts[i] != null;i++) {
             String newText= t.texts[i];
             this.recebeMsg(newText);
         }
+        */
         this.storageTotal = t.getStorageTotal();
         this.storagePics = t.getStoragePics();
         this.storageApps = t.getStorageApps();
         this.ocupado = t.getOcupado();
         this.apps = t.getApps();
         this.pics = t.getPics();
+        /*
         this.names = new String[this.storageApps];
         for (int i = 0; t.names[i] != null;i++) {
             int sizeApp = t.ocupado / storageApps;
             String newApp= t.names[i];
             t.instalaApp(newApp,sizeApp);
         }
+        */
     }
 
 
