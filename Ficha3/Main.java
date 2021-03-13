@@ -27,13 +27,14 @@ public class Main {
                 String[] names = new String[10];
                 Telemovel t1 = new Telemovel();
                 Telemovel t2 = new Telemovel("Sony", "Xperia", 1280.0, 720.0,250,texts,250,200,50,4,10,20,names);
-                Telemovel t3 = new Telemovel(t2);
+                t2.recebeMsg("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 t2.instalaApp("Discord",2);
                 t2.instalaApp("instagram",2);
                 t2.instalaApp("Zoom",3);
                 t2.instalaApp("Messenger",2);
-                t2.recebeMsg("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                Telemovel t3 = new Telemovel(t2);
                 t3.recebeMsg("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                t3.instalaApp("Skype",2);
                 t2.removeApp("Discord",2);
                 System.out.println(t1.toString());
                 System.out.println(t2.toString());
