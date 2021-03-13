@@ -1,5 +1,7 @@
 package Teste;
 
+import java.util.Arrays;
+
 public class Telemovel {
 
     private String Marca;
@@ -11,7 +13,7 @@ public class Telemovel {
     private int storagePics;
     private int storageApps;
     private int storageTotal = storagePics + storageApps;
-    private byte ocupado;
+    private int ocupado;
     private int apps;
     private int pics;
     private String[] names;
@@ -32,7 +34,7 @@ public class Telemovel {
     public void instalaApp(String nome, int tamanho) {
         int i = 0;
         if (existeEspaco(tamanho)){
-            for (; i<this.names.length && this.names[i] != "" ;i++);
+            for (; i<this.names.length && this.names[i] != null ;i++);
             this.names[i++] = nome;
             this.ocupado += tamanho;
         }
@@ -41,7 +43,7 @@ public class Telemovel {
     //c)
     public void recebeMsg(String msg){
         int i = 0;
-        for (;i<this.texts.length && this.texts[i] != "";i++);
+        for (;i<this.texts.length && this.texts[i] != null ;i++);
         if (i < this.texts.length){
             this.texts[i] = msg;
             this.ocupado += (byte)msg.length();
@@ -59,7 +61,7 @@ public class Telemovel {
     public String maiorMsg(){
         int size = this.texts[0].length();
         String result = this.texts[0];
-        for (int i = 0; i<this.texts.length ; i++){
+        for (int i = 0; i<this.texts.length && this.texts[i] != null ; i++){
             if (this.texts[i].length() > size){
                 size = this.texts[i].length();
                 result = this.texts[i];
@@ -73,7 +75,7 @@ public class Telemovel {
          int i = 0;
          for (;i<this.names.length && this.names[i] != nome ;i++);
          if (i<this.names.length){
-             this.names[i] = "";
+             this.names[i] = null;
              this.ocupado -= tamanho;
          }
     }
@@ -99,15 +101,16 @@ public class Telemovel {
         this.names[2] = "Discord";
     }
 
-    public Telemovel(String marca, String modelo, double resolX, double resolY, int storageText, int storageTotal, int storagePics, int storageApps, byte ocupado, int apps, int pics, String[] names) {
-        this.Marca = marca;
-        this.Modelo = modelo;
+    public Telemovel(String marca, String modelo, double resolX, double resolY, int storageText, String[] texts, int storagePics, int storageApps, int storageTotal, int ocupado, int apps, int pics, String[] names) {
+        Marca = marca;
+        Modelo = modelo;
         this.resolX = resolX;
         this.resolY = resolY;
         this.storageText = storageText;
-        this.storageTotal = storageTotal;
+        this.texts = texts;
         this.storagePics = storagePics;
         this.storageApps = storageApps;
+        this.storageTotal = storageTotal;
         this.ocupado = ocupado;
         this.apps = apps;
         this.pics = pics;
@@ -120,13 +123,24 @@ public class Telemovel {
         this.resolX= t.getResolX();
         this.resolY = t.getResolY();
         this.storageText = t.getStorageText();
+        //this.texts=t.getTexts();
+        this.texts = new String[this.storageText];
+        for (int i = 0; t.texts[i] != null;i++) {
+            String newText= t.texts[i];
+            this.recebeMsg(newText);
+        }
         this.storageTotal = t.getStorageTotal();
         this.storagePics = t.getStoragePics();
         this.storageApps = t.getStorageApps();
         this.ocupado = t.getOcupado();
         this.apps = t.getApps();
         this.pics = t.getPics();
-        this.names = t.getNames();
+        this.names = new String[this.storageApps];
+        for (int i = 0; t.names[i] != null;i++) {
+            int sizeApp = t.ocupado / storageApps;
+            String newApp= t.names[i];
+            t.instalaApp(newApp,sizeApp);
+        }
     }
 
 
@@ -170,7 +184,7 @@ public class Telemovel {
         return storageApps;
     }
 
-    public byte getOcupado() {
+    public int getOcupado() {
         return ocupado;
     }
 
@@ -241,5 +255,50 @@ public class Telemovel {
 
     public void setNames(String[] names) {
         this.names = names;
+    }
+
+    //EQUALS
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Telemovel telemovel = (Telemovel) o;
+
+        if (Double.compare(telemovel.resolX, resolX) != 0) return false;
+        if (Double.compare(telemovel.resolY, resolY) != 0) return false;
+        if (storageText != telemovel.storageText) return false;
+        if (storagePics != telemovel.storagePics) return false;
+        if (storageApps != telemovel.storageApps) return false;
+        if (storageTotal != telemovel.storageTotal) return false;
+        if (ocupado != telemovel.ocupado) return false;
+        if (apps != telemovel.apps) return false;
+        if (pics != telemovel.pics) return false;
+        if (Marca != null ? !Marca.equals(telemovel.Marca) : telemovel.Marca != null) return false;
+        if (Modelo != null ? !Modelo.equals(telemovel.Modelo) : telemovel.Modelo != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(texts, telemovel.texts)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(names, telemovel.names);
+    }
+
+    //TO STRING
+
+    public String toString() {
+        return "Telemovel{" +
+                "Marca='" + Marca + '\'' +
+                ", Modelo='" + Modelo + '\'' +
+                ", resolX=" + resolX +
+                ", resolY=" + resolY +
+                ", storageText=" + storageText +
+                ", texts=" + Arrays.toString(texts) +
+                ", storagePics=" + storagePics +
+                ", storageApps=" + storageApps +
+                ", storageTotal=" + storageTotal +
+                ", ocupado=" + ocupado +
+                ", apps=" + apps +
+                ", pics=" + pics +
+                ", names=" + Arrays.toString(names) +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package Teste;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class YoutubeVideo {
@@ -25,10 +26,9 @@ public class YoutubeVideo {
     //b)
     public void insereComentario(String comentario){
         int i = 0;
-        for (;i < this.maxComments && this.comments[i] != null;i++);
-        if (i<this.maxComments){
-            this.comments[i++] = comentario;
-        }
+        for (;i < this.maxComments && this.comments[i] != null;i++) ;
+        i++;
+        if (i<this.maxComments) this.comments[i] = comentario;
     }
 
     //c
@@ -53,7 +53,6 @@ public class YoutubeVideo {
         this.maxComments = 1000;
         this.maxVidSize = 4000000;
         this.conteudo = new byte[4000000];
-
         this.resolX = 1920;
         this.resolY = 1080;
         this.duracaoMin=0;
@@ -170,7 +169,6 @@ public class YoutubeVideo {
         this.maxComments = maxComments;
     }
 
-
     public void setResolX(int resolX) {
         this.resolX = resolX;
     }
@@ -198,4 +196,50 @@ public class YoutubeVideo {
     public void setComments(String[] comments) {
         this.comments = comments;
     }
+
+
+    //TO STRING
+
+
+    public String toString() {
+        return "YoutubeVideo{" +
+                "nome='" + nome + '\'' +
+                ", conteudo=" + Arrays.toString(conteudo) +
+                ", maxVidSize=" + maxVidSize +
+                ", maxComments=" + maxComments +
+                ", upDate=" + upDate +
+                ", resolX=" + resolX +
+                ", resolY=" + resolY +
+                ", duracaoMin=" + duracaoMin +
+                ", duracaoSec=" + duracaoSec +
+                ", likeCount=" + likeCount +
+                ", dislikeCount=" + dislikeCount +
+                ", comments=" + Arrays.toString(comments) +
+                '}';
+    }
+
+    //EQUALS
+
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        YoutubeVideo that = (YoutubeVideo) o;
+
+        if (getMaxVidSize() != that.getMaxVidSize()) return false;
+        if (getMaxComments() != that.getMaxComments()) return false;
+        if (getResolX() != that.getResolX()) return false;
+        if (getResolY() != that.getResolY()) return false;
+        if (Double.compare(that.getDuracaoMin(), getDuracaoMin()) != 0) return false;
+        if (Double.compare(that.getDuracaoSec(), getDuracaoSec()) != 0) return false;
+        if (getLikeCount() != that.getLikeCount()) return false;
+        if (getDislikeCount() != that.getDislikeCount()) return false;
+        if (getNome() != null ? !getNome().equals(that.getNome()) : that.getNome() != null) return false;
+        if (!Arrays.equals(getConteudo(), that.getConteudo())) return false;
+        if (getUpDate() != null ? !getUpDate().equals(that.getUpDate()) : that.getUpDate() != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(getComments(), that.getComments());
+    }
+
 }
