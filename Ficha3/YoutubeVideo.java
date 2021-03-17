@@ -1,6 +1,8 @@
 package Teste;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 public class YoutubeVideo {
@@ -18,17 +20,14 @@ public class YoutubeVideo {
     private double duracaoSec;
     private int likeCount;
     private int dislikeCount;
-    private String[] comments;
+    private ArrayList<String> comments;
 
 
     //Métodos
 
     //b)
     public void insereComentario(String comentario){
-        int i = 0;
-        for (;i < this.maxComments && this.comments[i] != null;i++) ;
-        i++;
-        if (i<this.maxComments) this.comments[i] = comentario;
+        this.comments.add(comentario);
     }
 
     //c
@@ -51,19 +50,23 @@ public class YoutubeVideo {
     public YoutubeVideo() {
         this.nome = "";
         this.maxComments = 1000;
-        this.maxVidSize = 4000000;
-        this.conteudo = new byte[4000000];
+        this.maxVidSize = 400;
+        this.conteudo = new byte[400];
+        this.upDate= new Date(2020, Calendar.DECEMBER, 25).getTime();
         this.resolX = 1920;
         this.resolY = 1080;
-        this.duracaoMin=0;
-        this.duracaoSec = 0;
-        this.likeCount = 0;
-        this.dislikeCount = 0;
-        this.comments = new String[1000];
+        this.duracaoMin=2;
+        this.duracaoSec = getDuracaoMin() * 60;
+        this.likeCount = 30;
+        this.dislikeCount = 15;
+        this.comments = new ArrayList<String>(maxComments);
+        this.comments.add("AAAAAA");
+        this.comments.add("BBBBBB");
+        this.comments.add("CCCCCC");
 
     }
 
-    public YoutubeVideo(String nome, byte[] conteudo, int maxVidSize, int maxComments, Date uPDate, int resolX, int resolY, double duracaoMin, double duracaoSec, int likeCount, int dislikeCount, String[] comments) {
+    public YoutubeVideo(String nome, byte[] conteudo, int maxVidSize, int maxComments, Date uPDate, int resolX, int resolY, double duracaoMin, double duracaoSec, int likeCount, int dislikeCount, ArrayList<String> comments) {
         this.nome = nome;
         this.conteudo = conteudo;
         this.maxVidSize = maxVidSize;
@@ -75,7 +78,11 @@ public class YoutubeVideo {
         this.duracaoSec = duracaoSec;
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
-        this.comments = comments;
+        this.comments = new ArrayList<String>(maxComments);
+        for (String comm : comments){
+            String copia = comm;
+            this.comments.add(copia);
+        }
     }
 
     public YoutubeVideo(YoutubeVideo yt){
@@ -90,7 +97,11 @@ public class YoutubeVideo {
         this.duracaoSec = yt.getDuracaoSec();
         this.likeCount = yt.getLikeCount();
         this.dislikeCount = yt.getDislikeCount();
-        this.comments = yt.getComments();
+        this.comments = new ArrayList<String>(yt.comments.size());
+        for (String comm : yt.comments){
+            String copia = comm;
+            this.comments.add(copia);
+        }
     }
 
 
@@ -141,7 +152,7 @@ public class YoutubeVideo {
         return dislikeCount;
     }
 
-    public String[] getComments() {
+    public ArrayList<String> getComments() {
         return comments;
     }
 
@@ -193,53 +204,29 @@ public class YoutubeVideo {
         this.dislikeCount = dislikeCount;
     }
 
-    public void setComments(String[] comments) {
+    public void setComments(ArrayList<String> comments) {
         this.comments = comments;
     }
 
-
-    //TO STRING
+//TO STRING
 
 
     public String toString() {
         return "YoutubeVideo{" +
-                "nome='" + nome + '\'' +
-                ", conteudo=" + Arrays.toString(conteudo) +
-                ", maxVidSize=" + maxVidSize +
-                ", maxComments=" + maxComments +
-                ", upDate=" + upDate +
-                ", resolX=" + resolX +
-                ", resolY=" + resolY +
-                ", duracaoMin=" + duracaoMin +
-                ", duracaoSec=" + duracaoSec +
-                ", likeCount=" + likeCount +
-                ", dislikeCount=" + dislikeCount +
-                ", comments=" + Arrays.toString(comments) +
+                "nome='" + nome + '\'' + "\n" +
+                ", maxVidSize=" + maxVidSize + "\n" +
+                ", maxComments=" + maxComments + "\n" +
+                ", upDate=" + upDate + "\n" +
+                ", resolX=" + resolX + "\n" +
+                ", resolY=" + resolY + "\n" +
+                ", duracaoMin=" + duracaoMin + "\n" +
+                ", duracaoSec=" + duracaoSec + "\n" +
+                ", likeCount=" + likeCount + "\n" +
+                ", dislikeCount=" + dislikeCount + "\n" +
+                ", comments=" + comments + "\n" +
                 '}';
     }
 
-    //EQUALS
 
-
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        YoutubeVideo that = (YoutubeVideo) o;
-
-        if (getMaxVidSize() != that.getMaxVidSize()) return false;
-        if (getMaxComments() != that.getMaxComments()) return false;
-        if (getResolX() != that.getResolX()) return false;
-        if (getResolY() != that.getResolY()) return false;
-        if (Double.compare(that.getDuracaoMin(), getDuracaoMin()) != 0) return false;
-        if (Double.compare(that.getDuracaoSec(), getDuracaoSec()) != 0) return false;
-        if (getLikeCount() != that.getLikeCount()) return false;
-        if (getDislikeCount() != that.getDislikeCount()) return false;
-        if (getNome() != null ? !getNome().equals(that.getNome()) : that.getNome() != null) return false;
-        if (!Arrays.equals(getConteudo(), that.getConteudo())) return false;
-        if (getUpDate() != null ? !getUpDate().equals(that.getUpDate()) : that.getUpDate() != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(getComments(), that.getComments());
-    }
 
 }

@@ -1,5 +1,6 @@
 package Teste;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,6 +46,19 @@ public class Main {
                 System.out.println(t2.tamMedioApps());
                 System.out.println(t2.existeEspaco(10));
                 System.out.println(t2.maiorMsg());
+            }
+            case 3 : {
+                YoutubeVideo y1 = new YoutubeVideo();
+                YoutubeVideo y2 = new YoutubeVideo(y1);
+                System.out.println(y1.toString());
+                System.out.println(y2.toString());
+                y1.insereComentario("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                System.out.println("Quantos dias depois? : " + y2.daysLater());
+                y1.thumbsUp();
+                y2.insereComentario("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                System.out.println(y1.toString());
+                System.out.println(y2.toString());
+                break;
             }
 
             case 7 : {
