@@ -36,16 +36,6 @@ public class LinhaEncomenda {
 
     }
 
-    public String toString(){
-        String result = "Referencia do produto: " + getReferencia() + "\n" +
-                        "Descriçao do produto: " + getDescricao() + "\n" +
-                        "Preço do produto individual: " + getPreco() +"\n" +
-                        "Quantidade encomendada: " + getQuantidade() +"\n" +
-                        "Taxa de impostos: " + getImpostos() + "\n" +
-                        "Desconto: " + getDesconto() +"\n" ;
-        return result;
-    }
-
     public double calculaValorLinhaEnc(){
         double precoDescontado= (getQuantidade() * getPreco()) * (1-(getDesconto() / 100.0));
         double resultado = precoDescontado * (1 + getImpostos()/100.0);
@@ -58,6 +48,21 @@ public class LinhaEncomenda {
     }
 
 
+    //TO STRING
+    public String toString(){
+        String result = "Referencia do produto: " + getReferencia() + "\n" +
+                "Descriçao do produto: " + getDescricao() + "\n" +
+                "Preço do produto individual: " + getPreco() +"\n" +
+                "Quantidade encomendada: " + getQuantidade() +"\n" +
+                "Taxa de impostos: " + getImpostos() + "\n" +
+                "Desconto: " + getDesconto() +"\n" ;
+        return result;
+    }
+
+    //CLONE
+    public LinhaEncomenda clone(){
+        return new LinhaEncomenda(this);
+    }
 
     //GETTERS
 

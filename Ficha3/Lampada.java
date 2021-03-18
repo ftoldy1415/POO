@@ -56,19 +56,30 @@ public class Lampada {
         long delta = x - this.reset;
         if (isOFF()){
             this.reset = today.getTime();
-            this.ON = true;
+            this.Eco = true;
             this.OFF = false;
         }
         else if(isON()){
             this.consumoCumulativo= delta * this.consumoLigada;
             this.reset = today.getTime();
             this.ON = false;
+            this.Eco = true;
         }
     }
 
     //d)
     public double totalConsumo(){
-        return getConsumoCumulativo();
+        double result = 0;
+        if (isEco()){
+            result = getConsumoCumulativo() + this.reset*getConsumoEco();
+        }
+        else if (isON()){
+            result = getConsumoCumulativo() + this.reset*getConsumoLigada();
+        }
+        else if (isOFF()){
+            result = getConsumoCumulativo();
+        }
+        return result;
     }
 
 
@@ -116,6 +127,22 @@ public class Lampada {
         this.ON = l.isON();
         this.OFF = l.isOFF();
     }
+
+
+    public String toString() {
+        return "Lampada{" +
+                "consumoCumulativo=" + consumoCumulativo +
+                ", consumoLigada=" + consumoLigada +
+                ", consumoEco=" + consumoEco +
+                ", reset=" + reset +
+                ", Eco=" + Eco +
+                ", ON=" + ON +
+                ", OFF=" + OFF +
+                ", today=" + today +
+                '}';
+    }
+
+
 
 
     //GETTERS

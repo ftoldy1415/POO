@@ -1,10 +1,7 @@
 package Teste;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-
+import java.util.*;
+import java.time.LocalDate;
 public class YoutubeVideo {
 
 
@@ -13,7 +10,7 @@ public class YoutubeVideo {
     private byte[] conteudo;
     private int maxVidSize;
     private int maxComments;
-    private Date upDate;
+    private LocalDate upDate;
     private int resolX;
     private int resolY;
     private double duracaoMin;
@@ -32,9 +29,11 @@ public class YoutubeVideo {
 
     //c
     public long daysLater(){
-        Date today = new Date();
-        long dif = today.getTime() - this.upDate.getTime();
-        return (dif) / (24 * 60 * 60 * 1000);
+        LocalDate today = LocalDate.now();
+        long years = today.getYear() - upDate.getYear();
+        long dias  = (years * 365) + today.getDayOfYear() - upDate.getDayOfYear();
+
+        return dias;
     }
 
 
@@ -52,7 +51,7 @@ public class YoutubeVideo {
         this.maxComments = 1000;
         this.maxVidSize = 400;
         this.conteudo = new byte[400];
-        this.upDate= new Date(2020, Calendar.DECEMBER, 25).getTime();
+        this.upDate = LocalDate.of(2021, 3, 16);
         this.resolX = 1920;
         this.resolY = 1080;
         this.duracaoMin=2;
@@ -66,7 +65,7 @@ public class YoutubeVideo {
 
     }
 
-    public YoutubeVideo(String nome, byte[] conteudo, int maxVidSize, int maxComments, Date uPDate, int resolX, int resolY, double duracaoMin, double duracaoSec, int likeCount, int dislikeCount, ArrayList<String> comments) {
+    public YoutubeVideo(String nome, byte[] conteudo, int maxVidSize, int maxComments,LocalDate uPDate, int resolX, int resolY, double duracaoMin, double duracaoSec, int likeCount, int dislikeCount, ArrayList<String> comments) {
         this.nome = nome;
         this.conteudo = conteudo;
         this.maxVidSize = maxVidSize;
@@ -80,10 +79,11 @@ public class YoutubeVideo {
         this.dislikeCount = dislikeCount;
         this.comments = new ArrayList<String>(maxComments);
         for (String comm : comments){
-            String copia = comm;
-            this.comments.add(copia);
+            this.comments.add(comm);
         }
     }
+
+
 
     public YoutubeVideo(YoutubeVideo yt){
         this.nome = yt.getNome();
@@ -108,7 +108,7 @@ public class YoutubeVideo {
     //GETTERS
 
 
-    public Date getUpDate() {
+    public LocalDate getUpDate() {
         return upDate;
     }
 
@@ -160,7 +160,7 @@ public class YoutubeVideo {
     //SETTERS
 
 
-    public void setUpDate(Date upDate) {
+    public void setUpDate(LocalDate upDate) {
         this.upDate = upDate;
     }
 

@@ -3,11 +3,11 @@ package Teste;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws InterruptedException {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Insira o exercicio que pretende testar");
@@ -24,7 +24,6 @@ public class Main {
                 break;
 
             }
-
             case 2 : {
                 String[] texts = new String[15];
                 String[] names = new String[10];
@@ -60,7 +59,30 @@ public class Main {
                 System.out.println(y2.toString());
                 break;
             }
-
+            case 4 : {
+                Lampada l3eco = new Lampada(0,10,3,0,false,true,false);
+                System.out.println("O consumo desde o ultimo reset foi: " + l3eco.periodoConsumo() + "\n");
+                l3eco.lampECO();
+                TimeUnit.SECONDS.sleep(2);          //para dar tempo para aumentar o consumo
+                System.out.println("o consumo comulativo foi: " + l3eco.totalConsumo());
+                l3eco.toString();
+                break;
+            }
+            case 5 : {
+                JogoDeFutebol j1 = new JogoDeFutebol();
+                JogoDeFutebol j2 = new JogoDeFutebol(j1);
+                j1.startGame();
+                j1.goloVisitado();
+                j1.goloVisitante();
+                j1.goloVisitado();
+                JogoDeFutebol j3 = new JogoDeFutebol(1,2,2,"1-2");
+                j3.goloVisitado();
+                j3.endGame();
+                System.out.println(j1.toString());
+                System.out.println(j2.toString());
+                System.out.println(j3.toString());
+                break;
+            }
             case 7 : {
                 LinhaEncomenda le = new LinhaEncomenda();
                 LinhaEncomenda le2 = new LinhaEncomenda (le);
@@ -72,7 +94,20 @@ public class Main {
                 System.out.println(le3.toString());
                 break;
             }
-
+            case 8 : {
+                LinhaEncomenda le3 = new LinhaEncomenda("1231234444","Meias",5.0,5,13,5);
+                Encomenda e1 = new Encomenda();
+                Encomenda e2 = new Encomenda(e1);
+                System.out.println(e1.toString() + "\n" + "\n");
+                System.out.println(e2.toString() + "\n" + "\n");
+                System.out.println("o Valor total é: " + e1.calculaValorTotal());
+                System.out.println("o valore descontado é: " + e2.calculaValorDesconto());
+                e2.adicionaLinha(le3);
+                e1.removeProduto("0123124");
+                System.out.println(e1.toString());
+                System.out.println(e2.toString());
+                break;
+            }
             case 9 : {
                 Triangulo a = new Triangulo();
                 System.out.println(a.toString());

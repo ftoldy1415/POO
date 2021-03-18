@@ -4,7 +4,7 @@ public class JogoDeFutebol {
     private int golosHome;
     private int golosAway;
     private int estadoJogo; // 1- por iniciar, 2- a decorrer, 3-terminado
-    private String resultado = golosHome + " - " + golosAway;
+    private String resultado;
 
 
     //METODOS
@@ -23,11 +23,14 @@ public class JogoDeFutebol {
     //c)
     public void goloVisitado(){
         this.golosHome++;
+        this.resultado = this.golosHome + " - " + this.golosAway;
     }
 
     //d)
     public void goloVisitante(){
         this.golosAway++;
+        this.resultado = this.golosHome + " - " + this.golosAway;
+
     }
 
     //e)
@@ -40,7 +43,7 @@ public class JogoDeFutebol {
     public JogoDeFutebol(){
         this.golosAway= 0;
         this.golosHome = 0;
-        this.resultado = golosHome + " - " + golosAway;
+        this.resultado = this.golosHome + " - " + this.golosAway;
         this.estadoJogo = 1;
     }
 
@@ -58,7 +61,17 @@ public class JogoDeFutebol {
         this.resultado = j.getResultado();
     }
 
-    //GETTERS
+
+    public String toString() {
+        return "JogoDeFutebol{" +
+                "golosHome=" + golosHome +
+                ", golosAway=" + golosAway +
+                ", estadoJogo=" + estadoJogo +
+                ", resultado='" + resultado + '\'' +
+                '}';
+    }
+
+//GETTERS
 
     public int getGolosHome() {
         return golosHome;
