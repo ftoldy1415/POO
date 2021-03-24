@@ -19,23 +19,35 @@ public class Encomenda {
     //Percorre o ArrayList linhaEncomendas e vai somando o valor de cada encomenda na linha
     public double calculaValorTotal(){
         double resultado = 0;
-        for(LinhaEncomenda le : this.linhaEncomendas){
-            resultado += le.calculaValorLinhaEnc();
+        Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
+        LinhaEncomenda a;
+
+        while(le.hasNext()){
+            a=le.next();
+            resultado += a.calculaValorLinhaEnc();
         }
         return resultado;
     }
+
+
 
     //C)
     public double calculaValorDesconto(){
         double resultado = 0;
-        for(LinhaEncomenda le : this.linhaEncomendas){
-            resultado += le.calculaValorDesconto();
+        Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
+        LinhaEncomenda a;
+
+        while(le.hasNext()){
+            a=le.next();
+            double desconto = a.calculaValorDescontoEncomenda();
+            resultado += desconto;
         }
         return resultado;
-
     }
 
     //D)
+
+    //Calcula o numero total de produtos
     public int numeroTotalProdutos(){
         int resultado = 0;
         Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
@@ -56,9 +68,9 @@ public class Encomenda {
         Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
         LinhaEncomenda a;
 
-        while(le.hasNext() && resultado == false){
+        while(le.hasNext() && !resultado){
             a=le.next();
-            if(a.getReferencia() == refProduto) resultado = true;
+            if(a.getReferencia().equals(refProduto)) resultado = true;
         }
         return resultado;
 
@@ -66,20 +78,21 @@ public class Encomenda {
 
     //F)
 
-    //Adiciona uma encomenda ao arraylist linhaencomendas
+    //Adiciona uma encomenda ao arraylist linhaEncomendas
     public void adicionaLinha(LinhaEncomenda linha){
         this.linhaEncomendas.add(linha.clone());
     }
 
     //G)
 
+    //Remove uma encomenda do arraylist
     public void removeProduto(String codProd){
         Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
         LinhaEncomenda a;
 
         while(le.hasNext()){
             a=le.next();
-            if(a.getReferencia() == codProd) le.remove();
+            if(a.getReferencia().equals(codProd)) le.remove();
         }
     }
 
@@ -107,9 +120,9 @@ public class Encomenda {
         this.morada = morada;
         this.numeroEncomenda = numeroEncomenda;
         this.datadeEncomenda = datadeEncomenda;
-        this.linhaEncomendas = new ArrayList<LinhaEncomenda>(linhaEncomendas.size() + 1);
+        this.linhaEncomendas = new ArrayList<>(linhaEncomendas.size() + 1);
         for (LinhaEncomenda encomenda : linhaEncomendas){
-            this.linhaEncomendas.add((LinhaEncomenda) encomenda.clone());
+            this.linhaEncomendas.add(encomenda.clone());
         }
     }
 
@@ -119,10 +132,8 @@ public class Encomenda {
         this.morada = e.getMorada();
         this.numeroEncomenda = e.getNumeroEncomenda();
         this.datadeEncomenda = e.getDatadeEncomenda();
-        this.linhaEncomendas = new ArrayList<LinhaEncomenda>(e.linhaEncomendas.size());
-        for (LinhaEncomenda encomenda : e.linhaEncomendas){
-            this.linhaEncomendas.add((LinhaEncomenda) encomenda.clone());
-        }
+        this.linhaEncomendas = new ArrayList<>(e.linhaEncomendas.size());
+        for (LinhaEncomenda encomenda : e.linhaEncomendas) this.linhaEncomendas.add(encomenda.clone());
     }
 
     //TO STRING
@@ -135,7 +146,7 @@ public class Encomenda {
                 ", morada='" + morada + '\'' +
                 ", numeroEncomenda='" + numeroEncomenda + '\'' +
                 ", datadeEncomenda=" + datadeEncomenda +
-                ", linhaEncomendas=" + linhaEncomendas +
+                ", linhaEncomendas=" + this.linhaEncomendas.toString() +
                 '}';
     }
 

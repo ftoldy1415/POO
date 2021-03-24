@@ -64,16 +64,18 @@ package Teste;
             double valor = this.quantidade * this.preco;
             valor -= valor*this.desconto;
             valor *= 1+this.imposto;
+
             return valor;
         }
 
         /**
          * C)
          */
-        public double calculaValorDesconto() {
+        public double calculaValorDescontoEncomenda() {
             double valor = this.quantidade * this.preco;
-            valor *= this.imposto; //e.g. imposto = 1.06
-            return this.calculaValorLinhaEnc()-valor;
+            valor *= 1+this.imposto; //e.g. imposto = 1.06
+            valor *= this.desconto;
+            return valor;
         }
 
         public String getReferencia() {
