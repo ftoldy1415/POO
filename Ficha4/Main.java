@@ -18,6 +18,7 @@ public class Main {
         System.out.println(e1.toString() + "\n" + "\n");
         System.out.println("O numero total de produtos é: " + e1.numeroTotalProdutos());
         System.out.println("A referencia 1234 faz parte? "  + e1.existeProdutoEncomenda("1234"));
+        System.out.println("A referencia 1231238888 faz parte? "  + e1.existeProdutoEncomenda("1231238888"));
         System.out.println("o Valor total é: " + e1.calculaValorTotal());
         System.out.println("o valore descontado é: " + e1.calculaValorDesconto());
         e1.removeProduto("1231237777");
