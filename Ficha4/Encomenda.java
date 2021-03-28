@@ -49,6 +49,7 @@ public class Encomenda {
 
     //Calcula o numero total de produtos
     public int numeroTotalProdutos(){
+
         int resultado = 0;
         Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
         LinhaEncomenda a;
@@ -58,12 +59,14 @@ public class Encomenda {
             resultado += a.getQuantidade();
         }
         return resultado;
+
     }
 
     //E)
 
     //Percorre o ArrayList linhaEncomendas
     public boolean existeProdutoEncomenda(String refProduto){
+        /*
         boolean resultado = false;
         Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
         LinhaEncomenda a;
@@ -74,6 +77,9 @@ public class Encomenda {
         }
         return resultado;
 
+         */
+
+        return this.linhaEncomendas.stream().anyMatch(le->le.getReferencia().equals(refProduto));
     }
 
     //F)
@@ -83,10 +89,14 @@ public class Encomenda {
         this.linhaEncomendas.add(linha.clone());
     }
 
+
+
+
     //G)
 
     //Remove uma encomenda do arraylist
     public void removeProduto(String codProd){
+        /*
         Iterator<LinhaEncomenda> le = this.linhaEncomendas.iterator();
         LinhaEncomenda a;
 
@@ -94,6 +104,9 @@ public class Encomenda {
             a=le.next();
             if(a.getReferencia().equals(codProd)) le.remove();
         }
+
+         */
+        this.linhaEncomendas.removeIf(le -> le.getReferencia().equals(codProd));
     }
 
 
