@@ -142,8 +142,7 @@ public class Lampada {
                 ", Eco=" + Eco +
                 ", ON=" + ON +
                 ", OFF=" + OFF +
-                ", today=" + today +
-                '}';
+                '}' + "\n";
     }
 
 
