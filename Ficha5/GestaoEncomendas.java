@@ -39,9 +39,11 @@ public class GestaoEncomendas {
     }
 
     //alinea v)
+    /*
     public String encomendaComMaisProdutos(){
         
     }
+     */
 
 
     public GestaoEncomendas(){
@@ -75,4 +77,20 @@ public class GestaoEncomendas {
         return this.encomendas.values().stream().collect(Collectors.toMap(e->e.getNumeroEncomenda(),e->e.clone()));
     }
 
+    //Alternativa
+
+    /*
+    public Map<Integer, Encomenda> getEncomendas() {
+        Map<Integer, Encomenda> res = new HashMap<>();
+        for(Map.Entry<Integer, Encomenda> e : encomendas.entrySet())
+                res.put(e.getKey(), e.getValue().clone());
+
+        return res;
+    }
+     */
+
+
+    public void setEncomendas(Map<Integer, Encomenda> encomendas) {
+        this.encomendas = encomendas;
+    }
 }

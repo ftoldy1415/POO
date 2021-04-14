@@ -82,6 +82,8 @@ public class Parque {
         return this.lugares.get(mat);
     }
 
+
+    //CONSTRUTORES
     public Parque (Map<String,Lugar> lugares, String nome){
         this.nomeParque = nome;
         this.lugares = lugares.values().stream().collect(Collectors.toMap(l->l.getMatricula(), l->l.clone()));
@@ -93,5 +95,8 @@ public class Parque {
     }
 
 
+    public Parque clone (Parque p){
+        return new Parque(p);
+    }
 
 }
