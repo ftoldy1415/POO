@@ -6,7 +6,7 @@ public class SmartDevice {
 
     public SmartDevice(){
         this.id = "";
-        this.estado = true;
+        this.estado = false;
     }
     public SmartDevice(String id, boolean estado) {
         this.id = id;
@@ -14,7 +14,7 @@ public class SmartDevice {
     }
     public SmartDevice(String id){
         this.id = id;
-        this.estado = true;
+        this.estado = false;
     }
 
     public  String getID() {
@@ -33,9 +33,10 @@ public class SmartDevice {
         this.estado = estado;
     }
 
-    public SmartDevice clone (SmartDevice a){
+    public SmartDevice clone (){
         SmartDevice result = new SmartDevice();
-        result.id= a.id;
-        result.estado = a.estado;
+        result.id= this.id;
+        result.estado = this.estado;
+        return result;
     }
 }

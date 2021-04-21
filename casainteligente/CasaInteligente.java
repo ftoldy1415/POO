@@ -2,6 +2,7 @@ package casainteligente;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class CasaInteligente {
     private String name;
@@ -18,17 +19,29 @@ public class CasaInteligente {
 
     public CasaInteligente(String name) {
         this.name = name;
+        this.devices = new ArrayList<>();
         this.map = new HashMap<String, ArrayList<String>>();
 
-    }
 
+    }
 
     public boolean existsDevice(String id){
-        this.devices.stream().anyMatch(d -> d.getID().equals(id));
+        return this.devices.stream().anyMatch(d -> d.getID().equals(id));
     }
 
-    public void getDevice(String name){
-        this.devices.stream().colle;
+    public SmartDevice getDevice(String id){
+        /*
+        for (SmartDevice s : this.devices)
+            if (s.getID().equals(id)) return s.clone();
+        return null;
+         */
+        Iterator<SmartDevice> sd = this.devices.iterator();
+        SmartDevice a;
+        while(sd.hasNext()){
+            a = sd.next();
+            if(a.getID().equals(id)) return a;
+        }
+        return null;
     }
 
     public void addDevice(SmartDevice a){
@@ -40,7 +53,9 @@ public class CasaInteligente {
     }
 
     public void addToRoom(String room, String id){
-        this.map.putIfAbsent(room, new ArrayList<String>());
+        ArrayList<String> salaAtual = this.map.get(room);
+        salaAtual.add(id);
+        this.map.putIfAbsent(room, salaAtual);
     }
 
     public boolean hasRoom(String name){
@@ -48,10 +63,22 @@ public class CasaInteligente {
     }
 
     public boolean roomHasDevice(String sala, String id){
-        return this.map.values().contains(id);
+        ArrayList<String> salaDevices = this.map.get(sala);
+        return salaDevices.contains(id);
     }
+/*
+    versao 2
+    public void setAllOn(boolean value){
+        for (SmartDevice s : this.devices) s.setOn(value);
+    }
+ */
+    public void setAllOn(boolean value){
+        Iterator<SmartDevice> sd = this.devices.iterator();
+        SmartDevice a;
 
-    public void setAllOn(boolean a){
-        this.devices.stream().getDevice().setOn(true);
+        while(sd.hasNext()){
+            a = sd.next();
+            a.setOn(value);
+        }
     }
 }

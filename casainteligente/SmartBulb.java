@@ -2,8 +2,8 @@ package casainteligente;
 
 public class SmartBulb extends SmartDevice{
     public static final int WARM = 2;
-    public static final int NEUTRAL = 0;
-    public static final int COLD = 1;
+    public static final int NEUTRAL = 1;
+    public static final int COLD = 0;
     private int tone;
 
     public SmartBulb(){
@@ -26,8 +26,8 @@ public class SmartBulb extends SmartDevice{
     }
 
     public void setTone(int tone) {
-        if (tone > 0) this.tone = WARM;
-        if (tone < 0) this.tone = COLD;
-        else this.tone = NEUTRAL;
+        if (tone >= 2) this.tone = WARM;
+        else if (tone < 0) this.tone = COLD;
+        else this.tone = tone;
     }
 }

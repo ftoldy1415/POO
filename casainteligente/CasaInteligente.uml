@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>casainteligente.CasaInteligente</OriginalElement>
+  <nodes>
+    <node x="260.0" y="284.5">casainteligente.SmartBulb</node>
+    <node x="0.0" y="262.0">casainteligente.SmartSpeaker</node>
+    <node x="122.5" y="0.0">casainteligente.SmartDevice</node>
+    <node x="483.0" y="0.0">casainteligente.CasaInteligente</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="casainteligente.SmartSpeaker" target="casainteligente.SmartDevice" relationship="GENERALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="120.0" y="237.0" />
+      <point x="234.5" y="237.0" />
+      <point x="0.0" y="106.0" />
+    </edge>
+    <edge source="casainteligente.SmartBulb" target="casainteligente.SmartDevice" relationship="GENERALIZATION">
+      <point x="0.0" y="-94.5" />
+      <point x="349.0" y="237.0" />
+      <point x="234.5" y="237.0" />
+      <point x="0.0" y="106.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="82.5" y="15.0" />
+  <SelectedNodes>
+    <node>casainteligente.CasaInteligente</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
