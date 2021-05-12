@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * @version 20210420
  */
 
-public abstract class Veiculo implements Comparable<Veiculo> {
+public abstract class Veiculo implements Comparable<Veiculo> , Serializable {   //implementa o serializable para conseguir ler e escrever carros em binário
     private String marca;
     private String modelo;
     private String matricula;
@@ -183,7 +184,7 @@ public abstract class Veiculo implements Comparable<Veiculo> {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Car :").append(this.marca).append("Modelo :").append(this.modelo).append("\n");
+        sb.append("Car :").append(this.marca).append("; Modelo :").append(this.modelo).append("\n");
         return sb.toString();
     }
 

@@ -1,9 +1,10 @@
 package com.company;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DriveIt{
+public class DriveIt implements Serializable { //se implementamos serializable aqui tambem temos que implementar em veiculo
 
     private String nome;
     private Map <String,Veiculo> veiculos;
@@ -125,6 +126,67 @@ public class DriveIt{
             throw new VeiculoJaExisteException();
         }
         else this.veiculos.put(v.getMatricula(),v.clone());
+    }
+
+
+
+    //guardar em texto
+    public void saveTextual (String filename) throws IOException {
+        PrintWriter p = new PrintWriter(filename);
+        p.print(this);
+        p.flush();
+        p.close();
+    }
+
+    //guardar em binário
+    public void saveBinary (String f) throws IOException{
+        ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(f));
+        o.writeObject(this);
+        o.flush();
+        o.close();
+    }
+
+    //CLassNotFoundException means in the binary code the class read is not driveIt
+    //f é o filename
+    public DriveIt readObject (String f) throws IOException, ClassNotFoundException{
+        ObjectInputStream i = new ObjectInputStream(new FileInputStream(f));
+        DriveIt d = (DriveIt) i.readObject();
+        i.close();
+        return d;
+    }
+
+
+
+    //passa o map veiculos para uma string
+    public String veiculosString (Map <String,Veiculo> m){
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String,Veiculo> a : m.entrySet()){
+            sb.append("Nome : ");
+            sb.append(a.getKey());
+            sb.append("Veiculo : ");
+            sb.append(a.getValue().toString());
+            sb.append(",");
+        }
+        return sb.toString();
+    }
+
+
+    @Override
+    public String toString() {
+        return "DriveIt{" +
+                "nome='" + nome +
+                ", veiculos=" + veiculosString(veiculos)+
+                ", promoçao=" + promoçao +
+                '}';
+    }
+
+
+    //converte os veiculos para um array de strings
+    public String[] getVeiculosString(){
+        List<Veiculo> v = this.getVeiculos();
+        String[] ss = new String[v.size()];
+        for ( int i = 0; i<v.size() ;i++) ss[i] = v.get(i).toString();
+        return ss;
     }
 
 }
