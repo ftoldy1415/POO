@@ -6,7 +6,7 @@ public class VeiculoPremium extends Veiculo{
 
     private int taxa;
     private int pontos;
-
+    private int pontosPorKm;
 
     public VeiculoPremium(){
         super();
@@ -42,13 +42,13 @@ public class VeiculoPremium extends Veiculo{
         return getPrecokm()*1.1*(this.taxa/100+1);
     }
 
+
     public void definePontosPorKm(int pts){
         this.pontos = pts;
     }
-
-
     public int getPontosPorKm(){
-        return this.pontos;
+        return this.pontosPorKm;
     }
+    public int getPontosTotal(){return this.pontos;}
 
 }

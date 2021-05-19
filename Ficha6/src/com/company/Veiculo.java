@@ -19,7 +19,7 @@ public abstract class Veiculo implements Comparable<Veiculo> , Serializable {   
     private double precokm;
     private ArrayList<Integer> classificacao;
     private int kms;
-    private int kmsUltimo; // kms da Ãºltima viagem??
+    private int kmsUltimo; // kms da ultima viagem
 
     /**
      * Construtores

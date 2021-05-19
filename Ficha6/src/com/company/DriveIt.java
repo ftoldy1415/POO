@@ -12,12 +12,15 @@ public class DriveIt implements Serializable { //se implementamos serializable a
 
 
 
-    //1
+    // Fase 1
+
 
     //1a)
     public boolean existeVeiculo(String cod){
         return this.veiculos.containsKey(cod);
     }
+
+
 
     //1b)
     public int quantos(){
@@ -29,10 +32,15 @@ public class DriveIt implements Serializable { //se implementamos serializable a
 
 
     //1c)
-    public int quantos(String cod){
-        return (int) this.veiculos.values()
-                .stream().filter(e -> e.getMarca().equals(cod)).count();
+    public int quantosT(String  tipo){
+        int result = 0;
+        if(tipo.equals("VeiculoPremium")) result = (int) this.veiculos.values().stream().filter(e -> e instanceof VeiculoPremium).count();
+        if(tipo.equals("VeiculoOcasião")) result = (int) this.veiculos.values().stream().filter(e -> e instanceof VeiculoOcasiao).count();
+        //if(tipo.equals("AutocarroInteligente")) result = (int) this.veiculos.values().stream().filter(e -> e instanceof AutocarroInteligente).count();
+        if(tipo.equals("VeiculoNormal")) result = (int) this.veiculos.values().stream().filter(e -> e instanceof VeiculoNormal).count();
+        return result;
     }
+
 
 
     //1d
@@ -46,14 +54,84 @@ public class DriveIt implements Serializable { //se implementamos serializable a
         this.veiculos.put(v.getMatricula(),v.clone());
     }
 
+
     //f)
     public List<Veiculo> getVeiculos(){
         return this.veiculos.values().stream().collect(Collectors.toList());
     }
 
 
+    //g)
+    public void adiciona(Set<Veiculo> vs){
+        for(Veiculo v : vs ){
+            this.veiculos.put(v.getMatricula(),v.clone());
+        }
+    }
 
-    //EXERCICIO 2 ORDENAÇOES
+
+    //h)
+    public void registarAluguer(String codVeiculo, int numKms){
+        Veiculo v;
+        v = this.veiculos.get(codVeiculo);
+        v.addViagem(numKms);
+        this.veiculos.put(v.getMatricula(),v.clone());
+    }
+
+
+    //i)
+    public void classificarVeiculo(String cod, int classificacao) {
+        Veiculo v;
+        v = this.veiculos.get(cod);     //retira o veiculo
+        v.addClassificacao(classificacao); //adiciona a classificaçao
+        this.veiculos.put(v.getMatricula(), v.clone()); //volta a inserir o veiculo classificado
+    }
+
+
+    //j)
+    public int custoRealKm(String cod){
+        return (int) this.veiculos.get(cod).custoRealKM();
+    }
+
+
+
+    //EXERCICIO 3
+
+    public Veiculo veiculoMaisBarato(){
+        double preco = 0.0;
+        Veiculo menor = null;
+        Iterator <Map.Entry<String,Veiculo>> itr = this.veiculos.entrySet().iterator();
+        while(itr.hasNext()){
+            Map.Entry<String,Veiculo> entry = itr.next();
+            Veiculo v = entry.getValue();
+            if (preco > v.custoRealKM()){
+                preco = v.custoRealKM();
+                menor = v;
+            }
+        }
+        return menor.clone();
+    }
+
+    public Veiculo veiculoMenosUtilizado(){
+        double kms = 0.0;
+        Veiculo menor = null;
+        Iterator <Map.Entry<String,Veiculo>> itr = this.veiculos.entrySet().iterator();
+        while(itr.hasNext()){
+            Map.Entry<String,Veiculo> entry = itr.next();
+            Veiculo v = entry.getValue();
+            if (kms > v.getKms()){
+                kms = v.getKms();
+                menor = v;
+            }
+        }
+        return menor.clone();
+    }
+
+
+
+
+
+
+    //FASE 2 ORDENAÇOES
     /*
     public Set<Veiculo> ordenaVeiculos(){   //ao colocar num set fica ordenado automaticamente
         Set<Veiculo> aux = new TreeSet<>();
@@ -62,6 +140,9 @@ public class DriveIt implements Serializable { //se implementamos serializable a
     }
      */
 
+    //EXERCICIO 2
+
+    //b) -> está por ordem natural
     public List<Veiculo> ordenaVeiculos(){
         return this.veiculos.values()
                             .stream()
@@ -70,12 +151,15 @@ public class DriveIt implements Serializable { //se implementamos serializable a
                             .collect(Collectors.toList());
     }
 
+
+    //c)
     public Set<Veiculo> ordenaVeiculos (Comparator<Veiculo> c){
         Set<Veiculo> aux = new TreeSet<>(new ComparadorNrKms());
         for( Veiculo v : this.veiculos.values()) aux.add(v.clone());
         return aux;
     }
 
+    //c) mas com um iterador
     public Set<Veiculo> ordenaVeiculosIt(Comparator<Veiculo> c){
         Set<Veiculo> aux = new TreeSet<>(new ComparadorNrKms());
         Iterator<Veiculo> it = this.veiculos.values().iterator();
@@ -91,6 +175,8 @@ public class DriveIt implements Serializable { //se implementamos serializable a
         ord.put(n,cv);
     }
 
+
+
     public Iterator<Veiculo> ordenarVeiculo(String criterio){
         Set<Veiculo> vs = new TreeSet<>(ord.get(criterio));
         for(Veiculo v : this.veiculos.values()) vs.add(v.clone());
@@ -104,7 +190,12 @@ public class DriveIt implements Serializable { //se implementamos serializable a
     }
 
 
-    //Exercicio 3
+
+
+    //FASE 3
+
+
+
 
     public List<BonificaKms> daoPontos(){
         List<BonificaKms> l = new ArrayList<>();
